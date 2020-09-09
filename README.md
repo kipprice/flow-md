@@ -36,7 +36,7 @@ const { astTree, parsedContent } = await parseMarkdown('file contents go here');
 
 ### Styles
 
-Setting the `styles` property gives you an easy way to override a lot of the visual elements in the application. You can specify colors, fonts, and to a certain extent, how the elements render on the page. You can specify as many or as few elements as you'd like; default styles will be used for the rest. You can view the default styles [here](TODO).
+Setting the `styles` property gives you an easy way to override a lot of the visual elements in the application. You can specify colors, fonts, and to a certain extent, how the elements render on the page. You can specify as many or as few elements as you'd like; default styles will be used for the rest. You can view the default styles [here](https://github.com/kipprice/flow-md/blob/main/lib/src/models/styles.ts).
 
 ```typescript
 /**
