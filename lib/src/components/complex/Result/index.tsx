@@ -3,8 +3,8 @@ import { Result } from '../../../models/result';
 import { getComponentConstructor } from '../../../helpers/componentConstructors';
 
 export type ResultElemProps = {
+    /** the result to render */
     result: Result;
-    ref?: (node: any) => void;
 };
 
 export const ResultElem: React.FC<ResultElemProps> = ({ result, ...props }) => {

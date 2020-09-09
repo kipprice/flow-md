@@ -10,7 +10,6 @@ import { StyledResult } from './StyledResult';
 import { selectMode } from '../../selectors/options';
 import { FileDetails } from '../../components/complex/FileDetails';
 import { css, jsx } from '@emotion/core';
-import { Spacing } from '../../components/basic/Spacing';
 
 export const CARD_WIDTH = 4;
 export const RESULT_WIDTH = 6;

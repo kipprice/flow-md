@@ -1,6 +1,9 @@
 import React, { ReactChild } from 'react';
-import { ColorScheme, styles } from '../../../helpers/styles';
 import styled from '@emotion/styled';
+import { useSelector } from 'react-redux';
+import { selectStyles } from '../../../selectors/styles';
+import { getComplementaryColors } from '../../../helpers/styles';
+import { ColorScheme } from '../../../models';
 
 export type TagProps = {
     colorScheme: ColorScheme;
@@ -8,8 +11,9 @@ export type TagProps = {
 };
 
 export const Tag: React.FC<TagProps> = ({ colorScheme, children, ...props }) => {
-    const primary = styles.colors[colorScheme];
-    const complement = styles.colors[styles.colorPairs[colorScheme][0]];
+    const styles = useSelector(selectStyles);
+
+    const [primary, complement] = getComplementaryColors(styles, colorScheme);
 
     return(
         <StyledTag primary={primary} complement={complement} {...props}>{children}</StyledTag>

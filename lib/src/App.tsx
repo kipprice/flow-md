@@ -4,42 +4,28 @@ import { FlowScene } from './scenes/Flow';
 import { CYOAScene } from './scenes/CYOA';
 import styled from '@emotion/styled';
 import { Sidebar } from './components/complex/Sidebar';
-import { styles, Styles, updateStyles } from './helpers/styles';
-import { updateUserFactory } from './helpers/componentConstructors';
-import { loadFileFromUrlThunk } from './thunks';
-import { useDispatch } from 'react-redux';
-import { FlowMDProps } from '.';
-import { changeModeAction, enableCompletionismAction } from './actions';
+import { useSelector } from 'react-redux';
+import { selectStyles } from './selectors/styles';
+import { selectPermissions } from './selectors';
+import { Styles } from './models/styles';
+import { getComponentConstructor } from './helpers/componentConstructors';
 
-export const App: React.FC<FlowMDProps> = ({ styles: userStyles, componentFactory, fileToLoad, enabledOptions = ['completionist', 'cyoa', 'flow', 'upload', 'sidebar'], defaultOptions }) => {
-    const dispatch = useDispatch();
+export const App: React.FC = ({ }) => {
+    const styles = useSelector(selectStyles);
+    const permissions = useSelector(selectPermissions);
 
-    // parse the options
-    if (componentFactory) { updateUserFactory(componentFactory) }
-    if (userStyles) { updateStyles(userStyles) }
-    if (fileToLoad) {
-        dispatch(loadFileFromUrlThunk(fileToLoad))
-    }
-    if (defaultOptions) {
-        const { mode, completionistMode } = defaultOptions;
-        if (mode) {
-            dispatch(changeModeAction(mode));
-        }
-        if (completionistMode) {
-            dispatch(enableCompletionismAction(completionistMode))
-        }
-        
-    }
-
+    const Spacing = getComponentConstructor('Spacing');
+    
     return (
         <StyledPage styles={styles}>
             <StyledContent>
-                {enabledOptions.includes('upload') && <UploadScene />}
+                {permissions.includes('upload') && <UploadScene />}
                 {/* {enabledOptions.includes('author') && <AuthorScene />} */}
-                {enabledOptions.includes('flow') && <FlowScene />}
-                {enabledOptions.includes('cyoa') && <CYOAScene />}
+                {permissions.includes('flow') && <FlowScene />}
+                {permissions.includes('cyoa') && <CYOAScene />}
+                <Spacing size={10} />
             </StyledContent>
-            {enabledOptions.includes('sidebar') && <Sidebar enabledOptions={enabledOptions} />}
+            {permissions.includes('sidebar') && <Sidebar />}
         </StyledPage>
     )
 }
@@ -53,6 +39,7 @@ const StyledPage = styled.div<{ styles: Styles }>`
     box-sizing: border-box;
     font-family: ${p => p.styles.fontFamilies.body};
     background-color: ${p => p.styles.colors.light};
+    color: ${p => p.styles.colors.darkest};
 
     * {
         box-sizing: border-box;
@@ -67,5 +54,4 @@ const StyledContent = styled.main`
     height: 100%;
     flex-grow: 1;
     overflow-y: auto;
-    margin-bottom: 2rem;
 `

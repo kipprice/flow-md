@@ -1,7 +1,10 @@
 import React from 'react';
-import { ColorScheme, styles, getComplementaryColors } from '../../../helpers/styles';
+import { getComplementaryColors } from '../../../helpers/styles';
 import { getComponentConstructor } from '../../../helpers/componentConstructors';
 import styled from '@emotion/styled';
+import { useSelector } from 'react-redux';
+import { selectStyles } from '../../../selectors/styles';
+import { ColorScheme } from '../../../models';
 
 export type CheckboxProps = {
     checked: boolean;
@@ -12,6 +15,8 @@ export type CheckboxProps = {
 };
 
 export const Checkbox: React.FC<CheckboxProps> = ({ checked, label, onChange, colorScheme = 'primary', labelColor }) => {
+    const styles = useSelector(selectStyles);
+    
     const Text = getComponentConstructor('Text');
 
     const [primaryColor, complementColor] = getComplementaryColors(styles, colorScheme)

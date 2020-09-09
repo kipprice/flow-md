@@ -14,7 +14,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({ label, onChange }) => {
         <form>
             <label>
                 <Button as='div'>{label}</Button>
-                <StyledFileInput type='file' onChange={ (e) => {
+                <StyledFileInput type='file' accept='.md' onChange={ (e) => {
                     e.target.files && onChange(e.target.files) 
                 }} />
             </label>

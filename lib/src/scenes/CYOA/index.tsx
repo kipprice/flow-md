@@ -36,7 +36,7 @@ export const CYOAScene: React.FC<CYOASceneProps> = ({  }) => {
                 <FileDetails css={css`width: 60vw;`}/>
 
                 {questions.map((q) => 
-                    <StyledQuestion question={q} mode='multiline' />  
+                    <StyledQuestion key={`cyoa-question-${q.id}`}  question={q} mode='multiline' />  
                 )}
 
                 {nextResult && <StyledResult result={nextResult} />}

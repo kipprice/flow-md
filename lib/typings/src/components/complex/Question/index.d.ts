@@ -1,6 +1,9 @@
 import React from 'react';
-import { Question } from '../../../models/question';
-export declare type QuestionElemProps = {
+import { Question, ColorScheme } from '../../../models';
+export declare type QuestionStateProps = {
     question: Question;
+    mode?: 'inline' | 'multiline';
+    colorScheme?: ColorScheme;
 };
-export declare const QuestionElem: React.FC<QuestionElemProps>;
+export declare const QuestionState: React.FC<QuestionStateProps>;
+export * from './InnerElem';

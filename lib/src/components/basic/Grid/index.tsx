@@ -1,23 +1,20 @@
-import React, { ReactChild } from 'react';
-import styled, { StyledComponent } from '@emotion/styled';
-import { Styles, styles } from '../../../helpers/styles';
+import React, { ReactChild, HTMLAttributes } from 'react';
+import styled from '@emotion/styled';
+import { ExpectsChildren } from '../../../helpers/componentConstructors';
 
-export type GridProps = {
+export type GridProps = HTMLAttributes<HTMLDivElement> & ExpectsChildren & {
     columns: number;
     children: ReactChild | ReactChild[];
 };
 
-let StyledGrid: StyledComponent<any, {styles: Styles, columns: number, }, any>;
-
 export const Grid: React.FC<GridProps> = ({ columns, children, ...props }) => {
-    if (!StyledGrid) {
-        StyledGrid = styled.div`
-            display: grid;
-            grid-template-columns: repeat(${columns}, ${100 / columns}%);
-            grid-template-rows: auto;
-        `;
-    }
     return(
-        <StyledGrid styles={styles} columns={columns} {...props}>{children}</StyledGrid>
+        <StyledGrid columns={columns} {...props}>{children}</StyledGrid>
     );
 };
+
+const StyledGrid = styled.div<{ columns: number }>`
+    display: grid;
+    grid-template-columns: repeat(${p => p.columns}, ${p => 100 / p.columns}%);
+    grid-template-rows: auto;
+`;

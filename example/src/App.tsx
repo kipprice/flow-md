@@ -1,34 +1,51 @@
 import React from 'react';
-import { FlowMD, ResultProps, Card} from 'flow-md';
+import { FlowMD, Card, getStyles } from 'flow-md';
+import type { ResultElemProps } from 'flow-md';
+import styled from '@emotion/styled';
 
 export const App: React.FC = () => {
     return (
         <FlowMD 
-            componentFactory={{
-                Result
+
+            componentConstructors={{
+                Result,
             }}
 
-            defaultOptions={{
+            options={{
+                title: 'Flow MD',
+                description: 'a tool by kip price',
+                completionistMode: true,
                 mode: 'flow',
-                completionistMode: true
+                permissions: ['flow', 'cyoa', 'completionist', 'sidebar', 'fileDetails', 'upload']
             }}
 
             styles={{
-                borderRadius: 3
+                // colors: {},
+                // colorPairs: {},
+                borderRadius: 15
             }}
 
-            fileToLoad='./res/long_sample.md'
-
-            enabledOptions={['flow', 'cyoa', 'upload', 'completionist', 'sidebar']}
+            // uncomment the below to load in an example file
+            //fileToLoad='./res/sample_with_results.md'
         />
     )
 }
 
-const Result: React.FC<ResultProps> = ({ result, ...props }) => {
+const Result: React.FC<ResultElemProps> = ({ result, ...props }) => {
+
+    // retrieve the complete set of styles via this function
+    const styles = getStyles();
+
     return (
-        <Card {...props}>
-            <h1>{result.title}</h1>
-            <div dangerouslySetInnerHTML={{ __html: result.nestedHtml }} />
-        </Card>
+        <StyledCard {...props} color={styles?.colors?.darkest}>
+            <h1 >{result.title}</h1>
+            <div dangerouslySetInnerHTML={{ __html: result.nestedHtml || '' }} />
+        </StyledCard>
     )
 }
+
+const StyledCard = styled(Card)<{ color: string }>`
+    & * {
+        color: ${p => p.color} !important;
+    }
+`;

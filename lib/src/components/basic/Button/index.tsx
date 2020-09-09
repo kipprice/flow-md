@@ -1,26 +1,26 @@
 /** @jsx jsx */
-import React, { ReactChild } from 'react';
+import React, { HTMLAttributes } from 'react';
 import { css, jsx } from '@emotion/core';
-import { Styles, styles, ColorScheme, generateShadow, getComplementaryColors } from '../../../helpers/styles';
+import { generateShadow, getComplementaryColors } from '../../../helpers/styles';
+import { ColorScheme, Styles } from '../../../models/styles';
+import { selectStyles } from '../../../selectors/styles';
+import { useSelector } from 'react-redux';
+import { ExpectsChildren } from '../../../helpers/componentConstructors';
 
-export type ButtonProps = {
+export type ButtonProps =  HTMLAttributes<HTMLElement> & ExpectsChildren & {
     onClick?: (event: React.MouseEvent<HTMLElement>) => void;
     as?: 'div' | 'button' | 'a';
-    children: ReactChild[] | ReactChild;
     colorScheme?: ColorScheme;
     invert?: boolean;
 };
 
 export const Button: React.FC<ButtonProps> = ({ children, onClick, as: As = 'button', colorScheme = 'primary', invert = false, ...props }) => {
-
+    const styles = useSelector(selectStyles);
     const [primaryColor, complementColor] = getComplementaryColors(styles, colorScheme);
 
     let s;
-    if (invert) {
-        s = buttonStyles(styles, complementColor, primaryColor);
-    } else {
-        s = buttonStyles(styles, primaryColor, complementColor);
-    }
+    if (invert) { s = buttonStyles(styles, complementColor, primaryColor); }
+    else { s = buttonStyles(styles, primaryColor, complementColor); }
     
     return(
         <As 

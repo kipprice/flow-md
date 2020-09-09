@@ -1,12 +1,12 @@
-import React, { ReactChild } from 'react';
+import React, { HTMLAttributes } from 'react';
 import styled from '@emotion/styled';
+import { ExpectsChildren } from '../../../helpers/componentConstructors';
 
 type FlexAlignmentType = 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'space-between' | 'space-around' | 'space-evenly';
 
-export type FlexProps = {
+export type FlexProps = HTMLAttributes<HTMLDivElement> & ExpectsChildren & {
     horizontal?: FlexAlignmentType;
     vertical?: FlexAlignmentType;
-    children: ReactChild | ReactChild[];
 };
 
 export const FlexRow: React.FC<FlexProps> = ({ children, horizontal, vertical, ...props }) => {

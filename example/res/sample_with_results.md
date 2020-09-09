@@ -10,7 +10,7 @@ How many questions do you want to ask your users on an average path?
   - [More than 10](#4)
 
 ### 2
-Are the questions very long?
+Are the questions or answers very long?
   - [No](#Flowchart)
   - [Yes](#3)
 
@@ -49,7 +49,7 @@ If you're looking for a more longform adventure, Choose-Your-Own-Adventure mode 
 ### Completionist Mode
 
 #### Overview
-If you're the type of person (like yours truly) who can't enjoy something without going all the way through every possible path, you can enable completionist mode and experience the joy of accomplishing every possible path.
+If you're the type of person (like yours truly) who can't enjoy something without going all the way through every possible path, you can enable completionist mode and experience the joy of accomplishing everything.
 
 #### Comparison
 | Repeatable? | Long? | 

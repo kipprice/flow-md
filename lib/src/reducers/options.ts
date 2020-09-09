@@ -1,9 +1,10 @@
 import { CHANGE_MODE, ChangeModeAction } from '../actions/changeMode';
-import { Options } from '../models/options';
+import { Options, defaultOptions } from '../models/options';
 import { Action } from 'redux';
 import { ENABLE_COMPLETIONISM, EnableCompletionismAction } from '../actions/enableCompletionism';
+import { LOAD_OPTIONS, LoadOptionsAction } from '../actions/loadOptions';
 
-export const options = (state: Options = { mode: 'flow' }, action: Action<any>) => {
+export const options = (state: Options = defaultOptions, action: Action<any>) => {
     switch (action.type) {
         case CHANGE_MODE:
             return {
@@ -15,6 +16,12 @@ export const options = (state: Options = { mode: 'flow' }, action: Action<any>) 
             return {
                 ...state,
                 completionistMode: (action as EnableCompletionismAction).enabled
+            }
+
+        case LOAD_OPTIONS:
+            return {
+                ...state,
+                ...(action as LoadOptionsAction).options
             }
     }
 

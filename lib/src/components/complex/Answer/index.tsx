@@ -4,14 +4,11 @@ import { getComponentConstructor } from '../../../helpers/componentConstructors'
 import { useDispatch, useSelector } from 'react-redux';
 import { answerQuestionAction } from '../../../actions/answerQuestion';
 import { selectIsAnswerSelected } from '../../../selectors/answerChain';
-import { Store } from '../../../models';
-import { ColorScheme, styles, Styles } from '../../../helpers/styles';
+import { Store, ColorScheme } from '../../../models';
 import { selectCompletionistMode } from '../../../selectors';
 import { selectHasUnvisitedQuestion, selectHasUnvisitedDescendents } from '../../../selectors/visitedQuestions';
-import styled from '@emotion/styled';
-import { Tag } from '../../basic/Tag';
 
-export type AnswerElemProps = {
+export type AnswerStateProps = {
     questionId: QuestionId;
     idx: number;
     answer: Answer;
@@ -19,7 +16,7 @@ export type AnswerElemProps = {
     colorScheme?: ColorScheme;
 };
 
-export const AnswerElem: React.FC<AnswerElemProps> = ({ answer, idx, questionId, subtle, colorScheme = 'primary', ...props }) => {
+export const AnswerState: React.FC<AnswerStateProps> = ({ answer, idx, questionId, ...props }) => {
     const dispatch = useDispatch();
     const isSelected = useSelector((s: Store) => selectIsAnswerSelected(s, questionId, idx))
     const completionismOn = useSelector(selectCompletionistMode);
@@ -31,50 +28,19 @@ export const AnswerElem: React.FC<AnswerElemProps> = ({ answer, idx, questionId,
         dispatch(answerQuestionAction(questionId, idx))
     }, [idx, questionId])
 
-    const ToggleButton = getComponentConstructor('ToggleButton');
-    const Tag = getComponentConstructor('Tag');
-    const Text = getComponentConstructor('Text');
-    const FlexRow = getComponentConstructor('FlexRow');
+    const AnswerElem = getComponentConstructor('Answer');
 
-    const AnswerText = styled.span<{ hasTag: boolean }>`
-        flex-grow: 1;
-        text-align: ${p => p.hasTag ? 'left' : 'center'};
-    `;
-
-    const StyledTag = styled(Tag)`
-        flex-shrink: 0;
-    `;
-
-    let tag = <React.Fragment />;
-    
-    let hasTag = false;
-    if (completionismOn && subtle) {
-        hasTag = true;
-
-        if (hasUnviewedChild) {
-            tag = <StyledTag colorScheme='secondary'>New</StyledTag>
-        } else if (hasUnviewedDescendent) {
-            tag = <StyledTag colorScheme='tertiary'>More to Explore</StyledTag>;
-        }
-    }
-
-
-    return(
-        <ToggleButton 
-            selected={isSelected} 
-            onClick={onClick} 
-            colorScheme={colorScheme}
-            invert={subtle}
-            subtle={subtle}
+    return (
+        <AnswerElem
+            answer={answer}
+            isSelected={isSelected}
+            onSelect={onClick}
+            completionismOn={!!completionismOn}
+            hasUnviewedChild={hasUnviewedChild}
+            hasUnviewedDescendent={hasUnviewedDescendent}
             {...props}
-        >
-            <FlexRow>
-                <AnswerText hasTag={hasTag}>
-                    {answer.answerText}
-                </AnswerText>
-                {tag}
-            </FlexRow>
-        </ToggleButton>
+        />
     );
 };
 
+export * from './InnerElem';

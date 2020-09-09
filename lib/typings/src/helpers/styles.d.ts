@@ -1,20 +1,3 @@
-export declare type Styles = {
-    colors: {
-        primary: string;
-        secondary: string;
-        tertiary: string;
-    };
-    neutrals: {
-        darkest: string;
-        dark: string;
-        lightest: string;
-        light: string;
-    };
-    fontFamilies: {
-        body: string;
-        header: string;
-        accent: string;
-    };
-    borderRadius: number;
-};
-export declare const styles: Styles;
+import { Styles, ColorScheme } from '../models/styles';
+export declare const generateShadow: (s: Styles) => string;
+export declare const getComplementaryColors: (s: Styles, colorScheme: ColorScheme) => string[];

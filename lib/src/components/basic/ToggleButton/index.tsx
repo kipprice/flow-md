@@ -3,7 +3,10 @@ import React from 'react';
 import { css, jsx } from '@emotion/core';
 import { getComponentConstructor } from '../../../helpers/componentConstructors';
 import { ButtonProps } from '../Button';
-import { Styles, styles, generateShadow, getComplementaryColors } from '../../../helpers/styles';
+import { generateShadow, getComplementaryColors } from '../../../helpers/styles';
+import { useSelector } from 'react-redux';
+import { selectStyles } from '../../../selectors/styles';
+import { Styles } from '../../../models';
 
 export type ToggleButtonProps = ButtonProps & {
     selected: boolean;
@@ -11,6 +14,8 @@ export type ToggleButtonProps = ButtonProps & {
 };
 
 export const ToggleButton: React.FC<ToggleButtonProps> = ({ selected, children, colorScheme = 'primary', invert = false, subtle = false, ...props}) => {
+    const styles = useSelector(selectStyles);
+    
     const Button = getComponentConstructor('Button');
 
     const [primaryColor, complementColor] = getComplementaryColors(styles, colorScheme);

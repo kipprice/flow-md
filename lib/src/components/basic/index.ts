@@ -1,6 +1,7 @@
 export * from './Button';
 export * from './ToggleButton';
 export * from './Card';
+export * from './Error';
 export * from './Flex';
 export * from './Grid';
 export * from './Heading';
@@ -8,3 +9,4 @@ export * from './Text';
 export * from './Tag';
 export * from './Checkbox';
 export * from './Spacing';
+export * from './Collapsible';

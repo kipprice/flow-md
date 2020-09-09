@@ -1,31 +1,29 @@
 import React, { useCallback } from 'react';
 import styled from '@emotion/styled';
-import { styles, Styles } from '../../../helpers/styles';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeModeAction } from '../../../actions/changeMode';
 import { Mode } from '../../../models/options';
 import { selectContent } from '../../../selectors';
-import { selectMode, selectCompletionistMode } from '../../../selectors/options';
+import { selectOptions} from '../../../selectors/options';
 import { getComponentConstructor } from '../../../helpers/componentConstructors';
 import { Spacing } from '../../basic/Spacing';
-import { Checkbox } from '../../basic/Checkbox';
-import { enableCompletionismAction } from '../../../actions/enableCompletionism';
-import { Option } from '../../../index'
+import { resetAction } from '../../../actions/reset';
+import { ModeToggle } from './ModeToggle';
+import { Styles } from '../../../models';
+import { selectStyles } from '../../../selectors/styles';
 
-export type SidebarProps = {
-    enabledOptions: Option[];
-};
+export type SidebarProps = { };
 
-export const Sidebar: React.FC<SidebarProps> = ({ enabledOptions }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ }) => {
     const content = useSelector(selectContent);
-    const mode = useSelector(selectMode);
-    const completionistEnabled = useSelector(selectCompletionistMode);
+    const styles = useSelector(selectStyles);
+    
+    const { title, description } = useSelector(selectOptions);
 
     const dispatch = useDispatch();
 
-    const gotoMode = useCallback((mode: Mode) => {
-        dispatch(changeModeAction(mode));
-    }, [dispatch])
+    const onReset = useCallback(() => {
+        dispatch(resetAction())
+    }, [])
 
     const modes = [
         ['flow', 'Flowchart'],
@@ -34,54 +32,46 @@ export const Sidebar: React.FC<SidebarProps> = ({ enabledOptions }) => {
     ]
 
     const ToggleButton = getComponentConstructor('ToggleButton');
+    const FlexColumn = getComponentConstructor('FlexColumn');
+    const Heading = getComponentConstructor('Heading');
+    const Text = getComponentConstructor('Text');
 
-    const onCompletionistChange = useCallback((checked: boolean) => {
-        dispatch(enableCompletionismAction(checked));
-    }, [completionistEnabled])
+    const StyledModeButtons = styled(FlexColumn)`flex-grow: 1;`;
+    const StyledEnd = styled(FlexColumn)`flex-shrink: 0;`;
 
     if (!content) {
         return <StyledNav styles={styles} />
     }
 
+    console.log(`${title} -- ${description}`);
+
     return(
         <StyledNav styles={styles}>
+            {title && <Heading as='h1' size='medium' colorScheme='lightest'>{title}</Heading>}    
+            {description && <Text colorScheme='lightest'>{description}</Text>}
 
-            {/* <Spacing size={2} direction='vertical' /> */}
+            <Spacing size={2} direction='vertical' />
 
-            
-            {modes.map((pair) => {
-                const isEnabled = enabledOptions.includes(pair[0] as Option);
-                const completionismAllowed = enabledOptions.includes('completionist');
+            <StyledModeButtons>
 
-                return (
-                    isEnabled && 
-                    <>
-                        <ToggleButton 
-                            key={`modeBtn-${pair[0]}`}
-                            selected={mode === pair[0]} 
-                            colorScheme='secondary' 
-                            onClick={() => gotoMode(pair[0] as Mode)}
-                        >
-                            {pair[1]}
-                        </ToggleButton>
+                {modes.map((pair) => 
+                    <ModeToggle 
+                        key={`modeBtn-${pair[0]}`} 
+                        mode={pair[0] as Mode}
+                        title={pair[1]}
+                    />
+                )}
+            </StyledModeButtons>
 
-                        {pair[0] === 'cyoa' && mode === 'cyoa' && completionismAllowed &&
-                            <>
-                                <Checkbox 
-                                    checked={!!completionistEnabled} 
-                                    label='Completionist Mode' 
-                                    onChange={onCompletionistChange}
-                                    labelColor='light'
-                                    colorScheme='secondary'
-                                />
-                                <Spacing size={1.5} direction='vertical' />
-                            </>
-                        }
-                </>
-                )
-            }
-                
-            )}
+            <StyledEnd>
+                <ToggleButton 
+                    selected={false} 
+                    colorScheme='secondary' 
+                    onClick={onReset}
+                >
+                    Reset
+                </ToggleButton>
+            </StyledEnd>
 
             
         </StyledNav>
@@ -97,3 +87,6 @@ const StyledNav = styled.nav<{ styles: Styles }>`
     max-width: 20vw;
     padding: 1rem;
 `;
+
+
+

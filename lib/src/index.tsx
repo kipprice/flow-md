@@ -1,31 +1,53 @@
 import React from 'react';
-import { App } from './App';
-import { store } from './models';
+import { store, Styles } from './models';
 import { Provider } from 'react-redux';
-import { Styles } from './helpers/styles';
 import { ComponentConstructors } from './helpers/componentConstructors';
 import { Options } from './models/options';
-
-// allow usage of the components
-export * from './components';
-
-export type Option = 'upload' | 'flow' | 'cyoa' | 'completionist' | 'sidebar'; // | 'author';
+import { OptionWrapper } from './OptionWrapper';
 
 export type FlowMDProps = {
-  styles?: Styles;
-  componentFactory?: ComponentConstructors;
-  fileToLoad?: string;
-  onSave?: (file: File) => void;
-  enabledOptions: Option[];
-  defaultOptions?: Options;
-}
+    /** the basic styles (colors, fonts, etc) to use within the application */
+    styles?: Partial<Styles>;
+
+    /** any components that should be overridden; be judicious about how this is used.  */
+    componentConstructors?: ComponentConstructors;
+
+    /** if specified, loads the file URL into the state instead of prompting the user to upload */
+    fileToLoad?: string;
+
+    /** options that control how the application will work */
+    options?: Partial<Options>;
+};
 
 export const FlowMD: React.FC<FlowMDProps> = (props) => {
-  return (
-    <React.StrictMode>
-      <Provider store={store}>
-        <App {...props} />
-      </Provider>
-    </React.StrictMode>
-  )
-}
+    return (
+        <React.StrictMode>
+            <Provider store={store}>
+                <OptionWrapper {...props} />
+            </Provider>
+        </React.StrictMode>
+    );
+};
+
+
+// Additional exports that will be useful for the calling code
+// to have access to (components, types, and a couple of helpers)
+export * from './components';
+export type {
+    ColorScheme,
+    Colors,
+    Answer,
+    Content,
+    Mode,
+    Options,
+    Permission,
+    Question,
+    QuestionAnswerPair,
+    QuestionId,
+    Result,
+    ResultId,
+    Styles,
+} from './models';
+export type { ComponentTypeProps, ComponentConstructors } from './helpers/componentConstructors';
+export { getStyles } from './selectors';
+export { parseMarkdown } from './thunks/parseFile'

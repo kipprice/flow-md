@@ -1,46 +1,112 @@
-import { AnswerElem, AnswerElemProps } from '../components/complex/Answer';
-import { Card, CardProps } from '../components/basic/Card';
-import { ResultElem, ResultElemProps } from '../components/complex/Result';
-import { Text, TextProps } from '../components/basic/Text';
-import { HeadingProps, Heading } from '../components/basic/Heading';
-import { QuestionElemProps, QuestionElem } from '../components/complex/Question';
-import { ButtonProps, Button } from '../components/basic/Button';
-import { FlexProps, FlexRow, FlexColumn } from '../components/basic/Flex';
-import { ToggleButtonProps, ToggleButton } from '../components/basic/ToggleButton';
-import { GridProps, Grid, TagProps, Tag, SpacingProps, Spacing } from '../components';
+import React from 'react';
 
-type Component<P> = React.FC<P>;
+import { 
+    ButtonProps, Button,
+    CardProps, Card, 
+    CheckboxProps, Checkbox,
+    CollapsibleProps, Collapsible,
+    FlexProps, FlexColumn, FlexRow,
+    GridProps, Grid,
+    HeadingProps, Heading,
+    SpacingProps, Spacing,
+    TagProps, Tag,
+    TextProps, Text,
+    ToggleButtonProps, ToggleButton,
+    ResultElemProps, ResultElem, 
+    QuestionElemProps, QuestionElem, 
+    AnswerElemProps, AnswerElem ,
+    ErrorDisplayProps, ErrorDisplay
+} from '../components';
 
-type ComponentTypeProps = {
-    Text: Component<TextProps>;
-    Heading: Component<HeadingProps>;
-    Card: Component<CardProps>;
-    Button: Component<ButtonProps>;
-    Grid: Component<GridProps>;
-    ToggleButton: Component<ToggleButtonProps>;
-    FlexRow: Component<FlexProps>;
-    FlexColumn: Component<FlexProps>;
-    Tag: Component<TagProps>;
-    Spacing: Component<SpacingProps>;
+export type ComponentConstructor<P> = React.FC<P>;
 
-    Result: Component<ResultElemProps>;
-    Question: Component<QuestionElemProps>;
-    Answer: Component<AnswerElemProps>;
+export type ComponentTypeProps = {
+
+    /** a basic button element without a concept of toggling */
+    Button: ComponentConstructor<ButtonProps>;
+
+    /** 
+     * a container that hosts a variety of elements, such as results
+     * and questions
+     */
+    Card: ComponentConstructor<CardProps>;
+
+    /** a simple checkbox and label pair */
+    Checkbox: ComponentConstructor<CheckboxProps>;
+
+    /** an element with a title that upon clicking can collapse or expand its children */
+    Collapsible: ComponentConstructor<CollapsibleProps>;
+
+    /** render a simple error to the user */
+    ErrorDisplay: ComponentConstructor<ErrorDisplayProps>;
+
+    /** a layout element for vertical arrangement */
+    FlexColumn: ComponentConstructor<FlexProps>;
+
+    /** a layout element for horizontal arrangement */
+    FlexRow: ComponentConstructor<FlexProps>;
+
+    /** a layout element for grid arrangement */
+    Grid: ComponentConstructor<GridProps>;
+
+    /** a wrapper around heading elements */
+    Heading: ComponentConstructor<HeadingProps>;
+
+    /** an element to add vertical or horizontal (or both) space */
+    Spacing: ComponentConstructor<SpacingProps>;
+
+    /** a visual indicator of whether an answer has been fully explored */
+    Tag: ComponentConstructor<TagProps>;
+
+    /** a wrapper around text elements */
+    Text: ComponentConstructor<TextProps>;
+
+    /** a button that can detect being selected or not */
+    ToggleButton: ComponentConstructor<ToggleButtonProps>;
+
+
+    /**
+     * renders the final result of the user's answers. Of all of the complex 
+     * elements, this is the least risky to override.
+     */
+    Result: ComponentConstructor<ResultElemProps>;
+
+    /**
+     * renders a question to the user. If overriding this element, ensure that you
+     * are using the `renderAnswer` method to generate the appropriate JSX wrapper 
+     * for the answer element (whether overridden or not)
+     */
+    Question: ComponentConstructor<QuestionElemProps>;
+
+    /** 
+     * renders an answer to the user within a question. If overriding this element,
+     * ensure that you are dispatching the `onSelect` event when a user makes a 
+     * selection.
+     */
+    Answer: ComponentConstructor<AnswerElemProps>;
+
+}
+
+export type ExpectsChildren = {
+    children: React.ReactNode | React.ReactNode[];
 }
 
 export type ComponentConstructors = Partial<ComponentTypeProps>
 
 const defaultFactory: ComponentTypeProps = {
-    Text,
-    Heading,
-    Card,
     Button,
-    Grid,
-    ToggleButton,
-    FlexRow,
+    Card,
+    Checkbox,
+    Collapsible,
+    ErrorDisplay,
     FlexColumn,
-    Tag,
+    FlexRow,
+    Grid,
+    Heading,
     Spacing,
+    Tag,
+    Text,
+    ToggleButton,
 
     Result: ResultElem,
     Question: QuestionElem,
@@ -56,6 +122,7 @@ export const getComponentConstructor = <K extends keyof ComponentTypeProps>(type
     return defaultFactory[type];
 }
 
+// TODO: turn this into part of the redux store
 export const updateUserFactory = (uf: ComponentConstructors) => {
     userFactory = uf;
 }
