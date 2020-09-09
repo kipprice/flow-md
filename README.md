@@ -4,6 +4,8 @@ This library takes in a markdown document of a particular format and transforms 
 
 The library has a self-contained Redux store that can parse markdown files (thanks to [unified](https://github.com/unifiedjs/unified)) and transform into the models expected by the application. It also will handle the rendering of these models for you. However, there are a variety of levers you can use in order to generate a look-and-feel that is all your own. 
 
+Try it out at https://kipprice.com/flow_md!
+
 ## Example
 ```jsx
 import { FlowMD, parseMarkdown } from 'flow-md';
@@ -96,7 +98,7 @@ export type Styles = {
 
 You can override the rendering of any base component in the application via the `componentConstructors` property. This should generally work well, but carries some risk with it. If you're not certain how to use all of the provided properties appropriately, you can look at the default implementations to get a sense of how it fits together.
 
-Each component will receive a set of props from the calling component; you can look at each of these types in the [definition files](TODO).
+Each component will receive a set of props from the calling component; you can look at each of these types in the [component folders](https://github.com/kipprice/flow-md/tree/main/lib/src/components).
 
 ```typescript
 export type ComponentTypeProps = {
