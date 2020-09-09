@@ -6,7 +6,7 @@ The library has a self-contained Redux store that can parse markdown files (than
 
 ## Example
 ```jsx
-import { FlowMD } from 'flow-md';
+import { FlowMD, parseMarkdown } from 'flow-md';
 
 // actually render the application
 ReactDOM.render(
@@ -91,9 +91,6 @@ export type Styles = {
     shadowTransparency: string;
 }
 ```
-
-Styles 
-
 
 ### Component Constructors
 
