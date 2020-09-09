@@ -92,9 +92,6 @@ export type Styles = {
 }
 ```
 
-Styles 
-
-
 ### Component Constructors
 
 You can override the rendering of any base component in the application via the `componentConstructors` property. This should generally work well, but carries some risk with it. If you're not certain how to use all of the provided properties appropriately, you can look at the default implementations to get a sense of how it fits together.
