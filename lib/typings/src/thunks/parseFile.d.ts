@@ -5,5 +5,5 @@ export declare const parseMarkdown: (fileContents: string) => Promise<{
     parsedContent: null;
 } | {
     astTree: import("unist").Parent;
-    parsedContent: import("..").Content;
+    parsedContent: import("..").Content | null;
 }>;

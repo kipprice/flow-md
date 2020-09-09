@@ -10,5 +10,6 @@ export declare type Store = {
     options: Options;
     visitedQuestions: Record<QuestionId | ResultId, boolean>;
     styles: Styles;
+    activeError: string;
 };
 export declare const store: any;

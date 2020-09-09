@@ -1,5 +1,5 @@
 import React from 'react';
-import { ButtonProps, CardProps, CheckboxProps, CollapsibleProps, FlexProps, GridProps, HeadingProps, SpacingProps, TagProps, TextProps, ToggleButtonProps, ResultElemProps, QuestionElemProps, AnswerElemProps } from '../components';
+import { ButtonProps, CardProps, CheckboxProps, CollapsibleProps, FlexProps, GridProps, HeadingProps, SpacingProps, TagProps, TextProps, ToggleButtonProps, ResultElemProps, QuestionElemProps, AnswerElemProps, ErrorDisplayProps } from '../components';
 export declare type ComponentConstructor<P> = React.FC<P>;
 export declare type ComponentTypeProps = {
     /** a basic button element without a concept of toggling */
@@ -13,6 +13,8 @@ export declare type ComponentTypeProps = {
     Checkbox: ComponentConstructor<CheckboxProps>;
     /** an element with a title that upon clicking can collapse or expand its children */
     Collapsible: ComponentConstructor<CollapsibleProps>;
+    /** render a simple error to the user */
+    ErrorDisplay: ComponentConstructor<ErrorDisplayProps>;
     /** a layout element for vertical arrangement */
     FlexColumn: ComponentConstructor<FlexProps>;
     /** a layout element for horizontal arrangement */
@@ -51,5 +53,5 @@ export declare type ExpectsChildren = {
     children: React.ReactNode | React.ReactNode[];
 };
 export declare type ComponentConstructors = Partial<ComponentTypeProps>;
-export declare const getComponentConstructor: <K extends "Button" | "Card" | "Checkbox" | "Collapsible" | "FlexColumn" | "FlexRow" | "Grid" | "Heading" | "Spacing" | "Tag" | "Text" | "ToggleButton" | "Result" | "Question" | "Answer">(type: K) => ComponentTypeProps[K];
+export declare const getComponentConstructor: <K extends "Button" | "Card" | "Checkbox" | "Collapsible" | "ErrorDisplay" | "FlexColumn" | "FlexRow" | "Grid" | "Heading" | "Spacing" | "Tag" | "Text" | "ToggleButton" | "Result" | "Question" | "Answer">(type: K) => ComponentTypeProps[K];
 export declare const updateUserFactory: (uf: ComponentConstructors) => void;
