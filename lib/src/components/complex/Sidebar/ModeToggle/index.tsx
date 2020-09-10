@@ -4,15 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeModeAction, enableCompletionismAction } from '../../../../actions';
 import { selectCompletionistMode, selectIsEnabled, selectMode } from '../../../../selectors';
 import { Mode, Store } from '../../../../models';
-
-// import flowIcon from '../../../../../res/flow.png';
-// import cyoaIcon from '../../../../../res/cyoa.png';
 import styled from '@emotion/styled';
-
-// const modeIcons = {
-//     flow: flowIcon,
-//     cyoa: cyoaIcon
-// }
 
 export type ModeToggleProps = {
     mode: Mode;
@@ -75,5 +67,4 @@ export const ModeToggle: React.FC<ModeToggleProps> = ({ mode, title, ...props })
 
 const StyledModeText = styled.span`
     flex-grow: 1;
-
 `;

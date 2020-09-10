@@ -26,7 +26,7 @@ export const App: React.FC = () => {
             }}
 
             // uncomment the below to load in an example file
-            fileToLoad='./res/long_sample.md'
+            //fileToLoad='./res/long_sample.md'
         />
     )
 }
