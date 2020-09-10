@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { selectContent } from '../../selectors';
 import { selectMode } from '../../selectors/options';

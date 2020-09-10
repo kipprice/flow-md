@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { Result } from '../../../models/result';
 import { useSelector } from 'react-redux';
 import { selectStyles } from '../../../selectors';
-import { calculateOriginCol } from '../../../helpers/grid';
+import { calculateOriginCol, BREAKPOINT } from '../../../helpers/grid';
 
 
 
@@ -24,6 +24,11 @@ export const StyledResult: React.FC<StyledResultProps> = ({ result }) => {
     const StyledResultElem = styled(ResultElem)<{ startCol: number, endCol: number }>`
         grid-column-start: ${p => p.startCol};
         grid-column-end: ${p => p.endCol};
+        
+        @media screen and (max-width: ${BREAKPOINT}px) {
+            grid-column-start: 1;
+            grid-column-end: unset;
+        }
     `;
 
     return(

@@ -2,7 +2,7 @@ import { Store } from '../models';
 import { QuestionId } from '../models/answer';
 import { selectQuestion } from './question';
 import { selectResult } from './result';
-import { Question, AnsweredQuestion } from '../models/question';
+import { AnsweredQuestion } from '../models/question';
 
 
 const selectNext = (s: Store): number | string | null => {

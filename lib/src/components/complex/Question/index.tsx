@@ -12,7 +12,7 @@ export type QuestionStateProps = Partial<CardProps> & {
     colorScheme?: ColorScheme;
 };
 
-export const QuestionState: React.FC<QuestionStateProps> = ({ question, mode, colorScheme, ...props }, ref) => {
+export const QuestionState: React.FC<QuestionStateProps> = ({ question, mode, colorScheme, ...props }) => {
     const isAnswered = useSelector((s: Store) => selectIsAnswered(s, question.id));
 
     const renderAnswer = useCallback((a: Answer, aIdx: number) => {
