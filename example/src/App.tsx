@@ -22,11 +22,11 @@ export const App: React.FC = () => {
             styles={{
                 // colors: {},
                 // colorPairs: {},
-                borderRadius: 15
+                borderRadius: 15,
             }}
 
             // uncomment the below to load in an example file
-            //fileToLoad='./res/sample_with_results.md'
+            //fileToLoad='./res/long_sample.md'
         />
     )
 }

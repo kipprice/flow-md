@@ -41,7 +41,6 @@ const StyledLabel = styled.label`
     cursor: pointer;
     display: flex;
     align-items: center;
-    
 `;
 
 const StyledBox = styled.div<{ primary: string, complement: string }>`

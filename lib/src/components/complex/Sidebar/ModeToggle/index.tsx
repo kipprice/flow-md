@@ -2,9 +2,9 @@ import React, { useCallback } from 'react';
 import { getComponentConstructor } from '../../../../helpers/componentConstructors';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeModeAction, enableCompletionismAction } from '../../../../actions';
-import { Checkbox, Spacing } from '../../..';
 import { selectCompletionistMode, selectIsEnabled, selectMode } from '../../../../selectors';
 import { Mode, Store } from '../../../../models';
+import styled from '@emotion/styled';
 
 export type ModeToggleProps = {
     mode: Mode;
@@ -16,8 +16,6 @@ export const ModeToggle: React.FC<ModeToggleProps> = ({ mode, title, ...props })
     const currentMode = useSelector(selectMode);
     const isCompletionismEnabled = useSelector((s: Store) => selectIsEnabled(s, 'completionist'));
     const isEnabled = useSelector((s: Store) => selectIsEnabled(s, mode))
-
-    console.log(`${mode} ${isEnabled ? 'is' : 'is not'} enabled`)
     const dispatch = useDispatch();
     
     const gotoMode = useCallback(() => {
@@ -30,6 +28,9 @@ export const ModeToggle: React.FC<ModeToggleProps> = ({ mode, title, ...props })
 
     const ToggleButton = getComponentConstructor('ToggleButton');
     const FlexColumn = getComponentConstructor('FlexColumn');
+    const FlexRow = getComponentConstructor('FlexRow');
+    const Spacing = getComponentConstructor('Spacing');
+    const Checkbox = getComponentConstructor('Checkbox');
 
     const isSelected = (currentMode === mode);
 
@@ -43,7 +44,9 @@ export const ModeToggle: React.FC<ModeToggleProps> = ({ mode, title, ...props })
                 onClick={() => gotoMode()}
                 {...props}
             >
-                {title}
+                <FlexRow vertical='center' horizontal='center'>
+                    <StyledModeText>{title}</StyledModeText>
+                </FlexRow>
             </ToggleButton>
 
             {mode === 'cyoa' && isSelected && isCompletionismEnabled &&
@@ -61,3 +64,7 @@ export const ModeToggle: React.FC<ModeToggleProps> = ({ mode, title, ...props })
         </FlexColumn>
     );
 };
+
+const StyledModeText = styled.span`
+    flex-grow: 1;
+`;

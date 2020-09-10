@@ -18,16 +18,15 @@ export const StyledResult: React.FC<StyledResultProps> = ({ result }) => {
     const ResultElem = getComponentConstructor('Result');
 
     const StyledResult = styled(ResultElem)`
-        width: 60vw;
+        
     `;
 
     useEffect(() => {
-        console.log('viewing result');
         if (isViewed) { return; }
         window.setTimeout(() => dispatch(visitedAction(result.id)), 0);
     }, [isViewed, result])
 
     return(
-        <StyledResult result={result} />
+        <StyledResult id={`result-${result.id}`} result={result} />
     );
 };

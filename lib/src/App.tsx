@@ -6,13 +6,16 @@ import styled from '@emotion/styled';
 import { Sidebar } from './components/complex/Sidebar';
 import { useSelector } from 'react-redux';
 import { selectStyles } from './selectors/styles';
-import { selectPermissions } from './selectors';
+import { selectPermissions, selectHasContent } from './selectors';
 import { Styles } from './models/styles';
 import { getComponentConstructor } from './helpers/componentConstructors';
+import { ScrollHelper } from './helpers/scroll';
+import { BREAKPOINT } from './helpers/grid';
 
 export const App: React.FC = ({ }) => {
     const styles = useSelector(selectStyles);
     const permissions = useSelector(selectPermissions);
+    const hasContent = useSelector(selectHasContent);
 
     const Spacing = getComponentConstructor('Spacing');
     
@@ -23,9 +26,10 @@ export const App: React.FC = ({ }) => {
                 {/* {enabledOptions.includes('author') && <AuthorScene />} */}
                 {permissions.includes('flow') && <FlowScene />}
                 {permissions.includes('cyoa') && <CYOAScene />}
-                <Spacing size={10} />
+                {hasContent && <Spacing size={20} /> }
             </StyledContent>
             {permissions.includes('sidebar') && <Sidebar />}
+            <ScrollHelper />
         </StyledPage>
     )
 }
@@ -47,6 +51,10 @@ const StyledPage = styled.div<{ styles: Styles }>`
 
     h1, h2, h3, h4, h5, h6 {
         font-family: ${p => p.styles.fontFamilies.header};
+    }
+
+    @media screen and (max-width: ${BREAKPOINT}px) {
+        flex-direction: column-reverse;
     }
 `;
 

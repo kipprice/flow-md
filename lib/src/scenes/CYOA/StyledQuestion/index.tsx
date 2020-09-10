@@ -21,11 +21,12 @@ export const StyledQuestion: React.FC<StyledQuestionProps> = ({ question }) => {
         window.setTimeout(() => dispatch(visitedAction(question.id)), 0);
     }, [isViewed, question])
 
-    const StyledQuestion = styled(QuestionState)`
-        width: 60vw;
-    `;
 
     return(
-        <StyledQuestion question={question} mode='multiline' colorScheme='tertiary' />
+        <StyledInnerQuestion question={question} mode='multiline' colorScheme='tertiary' />
     );
 };
+
+const StyledInnerQuestion = styled(QuestionState)`
+        
+`;

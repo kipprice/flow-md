@@ -5,3 +5,7 @@ export type Question = {
     questionText: string;
     answers: Answer[];
 }
+
+export type AnsweredQuestion = Question & {
+    answerIdx: number;
+}

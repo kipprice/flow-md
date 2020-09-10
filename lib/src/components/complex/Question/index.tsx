@@ -4,14 +4,15 @@ import { getComponentConstructor } from '../../../helpers/componentConstructors'
 import { useSelector } from 'react-redux';
 import { selectIsAnswered } from '../../../selectors';
 import { AnswerState } from '../Answer';
+import { CardProps } from '../../basic';
 
-export type QuestionStateProps = {
+export type QuestionStateProps = Partial<CardProps> & {
     question: Question;
     mode?: 'inline' | 'multiline';
     colorScheme?: ColorScheme;
 };
 
-export const QuestionState: React.FC<QuestionStateProps> = ({ question, mode, colorScheme, ...props }) => {
+export const QuestionState: React.FC<QuestionStateProps> = ({ question, mode, colorScheme, ...props }, ref) => {
     const isAnswered = useSelector((s: Store) => selectIsAnswered(s, question.id));
 
     const renderAnswer = useCallback((a: Answer, aIdx: number) => {
@@ -31,6 +32,7 @@ export const QuestionState: React.FC<QuestionStateProps> = ({ question, mode, co
 
     return(
         <QuestionElem
+            id={`question-${question.id}`}
             question={question}
             mode={mode}
             colorScheme={colorScheme}
