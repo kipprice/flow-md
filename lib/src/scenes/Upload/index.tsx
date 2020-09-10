@@ -28,23 +28,19 @@ export const UploadScene: React.FC<UploadSceneProps> = ({  }) => {
     const FlexRow = getComponentConstructor('FlexRow');
     const ErrorDisplay = getComponentConstructor('ErrorDisplay');
 
-    const UploadScreen = styled(FlexRow)`
-        min-height: 100%;
-    `;
-
     const Col = styled(FlexColumn)`
         width: 40vw;
     `
 
     if (hasData) { return null; }
     return(
-        <UploadScreen horizontal='center' vertical='flex-start'>
+        <FlexRow horizontal='center' vertical='flex-start'>
             <Col horizontal='center'>
                 <HelpText />
                 <Spacing size={2} />
                 <FileUpload label='Upload File' onChange={onChange} />
                 {hasError && <ErrorDisplay>{error}</ErrorDisplay>}
             </Col>
-        </UploadScreen>
+        </FlexRow>
     );
 };

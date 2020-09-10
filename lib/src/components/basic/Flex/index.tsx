@@ -7,6 +7,7 @@ type FlexAlignmentType = 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'spa
 export type FlexProps = HTMLAttributes<HTMLDivElement> & ExpectsChildren & {
     horizontal?: FlexAlignmentType;
     vertical?: FlexAlignmentType;
+    wrap?: boolean;
 };
 
 export const FlexRow: React.FC<FlexProps> = ({ children, horizontal, vertical, ...props }) => {
@@ -20,6 +21,7 @@ const StyledRow = styled.div<FlexProps>`
     flex-direction: row;
     justify-content: ${p => p.horizontal};
     align-items: ${p => p.vertical};
+    flex-wrap: ${p => p.wrap ? 'wrap' : 'nowrap'};
 `;
 
 export const FlexColumn: React.FC<FlexProps> = ({ children, horizontal, vertical, ...props }) => {

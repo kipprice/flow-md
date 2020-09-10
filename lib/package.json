@@ -7,7 +7,7 @@
   "main": "dist/",
   "module": "dist/",
   "types": "typings/src/index.d.ts",
-  "homepage": "https://github.com/kipprice/flow-md",
+  "homepage": "https://kipprice.com/flow_md",
   "repository": {
     "type": "git",
     "url": "https://github.com/kipprice/flow-md"
@@ -75,6 +75,7 @@
     "rehype-stringify": "^8.0.0",
     "remark-parse": "^8.0.3",
     "remark-rehype": "^7.0.0",
-    "unified": "^9.2.0"
+    "unified": "^9.2.0",
+    "url-loader": "^4.1.0"
   }
 }

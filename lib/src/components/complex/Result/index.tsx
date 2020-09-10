@@ -1,8 +1,9 @@
 import React from 'react';
 import { Result } from '../../../models/result';
 import { getComponentConstructor } from '../../../helpers/componentConstructors';
+import { CardProps } from '../../basic';
 
-export type ResultElemProps = {
+export type ResultElemProps = Partial<CardProps> & {
     /** the result to render */
     result: Result;
 };

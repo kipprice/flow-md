@@ -1,6 +1,7 @@
 import React, { ReactChild, HTMLAttributes } from 'react';
 import styled from '@emotion/styled';
 import { ExpectsChildren } from '../../../helpers/componentConstructors';
+import { BREAKPOINT } from '../../../helpers/grid';
 
 export type GridProps = HTMLAttributes<HTMLDivElement> & ExpectsChildren & {
     columns: number;

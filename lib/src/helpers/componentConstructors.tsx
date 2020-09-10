@@ -15,7 +15,9 @@ import {
     ResultElemProps, ResultElem, 
     QuestionElemProps, QuestionElem, 
     AnswerElemProps, AnswerElem ,
-    ErrorDisplayProps, ErrorDisplay
+    ErrorDisplayProps, ErrorDisplay, 
+    FileDetailsProps, FileDetails,
+    HelpText, 
 } from '../components';
 
 export type ComponentConstructor<P> = React.FC<P>;
@@ -85,6 +87,10 @@ export type ComponentTypeProps = {
      */
     Answer: ComponentConstructor<AnswerElemProps>;
 
+    FileDetails: ComponentConstructor<FileDetailsProps>;
+
+    HelpText: ComponentConstructor<{ }>;
+
 }
 
 export type ExpectsChildren = {
@@ -103,6 +109,7 @@ const defaultFactory: ComponentTypeProps = {
     FlexRow,
     Grid,
     Heading,
+    HelpText,
     Spacing,
     Tag,
     Text,
@@ -110,7 +117,8 @@ const defaultFactory: ComponentTypeProps = {
 
     Result: ResultElem,
     Question: QuestionElem,
-    Answer: AnswerElem
+    Answer: AnswerElem,
+    FileDetails
 }
 
 let userFactory: ComponentConstructors;

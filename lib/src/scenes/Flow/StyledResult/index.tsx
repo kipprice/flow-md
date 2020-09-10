@@ -1,8 +1,10 @@
 import React from 'react';
 import { getComponentConstructor } from '../../../helpers/componentConstructors';
 import styled from '@emotion/styled';
-import { COLUMNS, RESULT_WIDTH } from '..';
 import { Result } from '../../../models/result';
+import { useSelector } from 'react-redux';
+import { selectStyles } from '../../../selectors';
+import { calculateOriginCol } from '../../../helpers/grid';
 
 
 
@@ -11,10 +13,11 @@ export type StyledResultProps = {
 };
 
 export const StyledResult: React.FC<StyledResultProps> = ({ result }) => {
+    const styles = useSelector(selectStyles);
 
     // calculate placement
-    const startCol = ((COLUMNS - RESULT_WIDTH) / 2) + 1;
-    const endCol = startCol + RESULT_WIDTH;
+    const startCol = calculateOriginCol(styles.gridColumns, styles.gridResultCardWidth)
+    const endCol = startCol + styles.gridResultCardWidth;
 
     const ResultElem = getComponentConstructor('Result');
 
@@ -25,6 +28,7 @@ export const StyledResult: React.FC<StyledResultProps> = ({ result }) => {
 
     return(
         <StyledResultElem 
+            id={`result-${result.id}`}
             result={result} 
             startCol={startCol} 
             endCol={endCol}

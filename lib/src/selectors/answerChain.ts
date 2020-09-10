@@ -2,7 +2,7 @@ import { Store } from '../models';
 import { QuestionId } from '../models/answer';
 import { selectQuestion } from './question';
 import { selectResult } from './result';
-import { Question } from '../models/question';
+import { Question, AnsweredQuestion } from '../models/question';
 
 
 const selectNext = (s: Store): number | string | null => {
@@ -35,9 +35,6 @@ export const selectFinalResult = (s: Store) => {
     return null; 
 }
 
-export type AnsweredQuestion = Question & {
-    answerIdx: number;
-}
 export const selectAnsweredQuestions  = (s: Store): AnsweredQuestion[] => {
     const out = [];
     for (let pair of s.answerChain) {

@@ -61,7 +61,7 @@ export const QuestionElem: React.FC<QuestionElemProps> = ({
             </Text>
             <Spacing size={1} direction='vertical' />
             {mode === 'inline' ? (
-                <FlexRow horizontal='space-around'>{answers}</FlexRow>
+                <FlexRow horizontal='space-around' wrap>{answers}</FlexRow>
             ) : (
                 <FlexColumn horizontal='stretch'>{answers}</FlexColumn>
             )}

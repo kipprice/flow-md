@@ -61,6 +61,16 @@ export type Styles = {
 
     /** the 2-digit hex transparency that should be appended to the shadow color with box-shadows, e.g. 'AA' */
     shadowTransparency: string;
+
+    /** the number of columns to use in flowchart mode */
+    gridColumns: number;
+
+    /** how wide a question card should be in flowchart mode */
+    gridQuestionCardWidth: number;
+
+    /** how wide a result card should be in flowchart mode */
+    gridResultCardWidth: number;
+
 }
 
 export const defaultStyles: Styles = {
@@ -92,6 +102,9 @@ export const defaultStyles: Styles = {
 
     borderRadius: 2,
     boxShadow: `2px 2px 0 1px`,
-    shadowTransparency: '44'
+    shadowTransparency: '44',
+    gridColumns: 12,
+    gridQuestionCardWidth: 4,
+    gridResultCardWidth: 6
 }
 

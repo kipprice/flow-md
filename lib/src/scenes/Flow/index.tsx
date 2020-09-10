@@ -1,19 +1,18 @@
 /* @jsx jsx */
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectHasContent } from '../../selectors';
-import { getComponentConstructor } from '../../helpers/componentConstructors';
-import { selectAnsweredQuestions, selectNextQuestion, selectFinalResult, AnsweredQuestion } from '../../selectors/answerChain';
+import { selectHasContent, selectStyles } from '../../selectors';
+import { getComponentConstructor, ComponentConstructor } from '../../helpers/componentConstructors';
+import { selectAnsweredQuestions, selectNextQuestion, selectFinalResult } from '../../selectors/answerChain';
 import { StyledQuestion } from './StyledQuestion';
-import { Question } from '../../models/question';
+import { Question, AnsweredQuestion } from '../../models/question';
 import { StyledResult } from './StyledResult';
 import { selectMode } from '../../selectors/options';
-import { FileDetails } from '../../components/complex/FileDetails';
+import { FileDetailsState } from '../../components/complex/FileDetails';
 import { css, jsx } from '@emotion/core';
-
-export const CARD_WIDTH = 4;
-export const RESULT_WIDTH = 6;
-export const COLUMNS = 12;
+import { calculateOriginCol, calculateNextStartCol, BREAKPOINT } from '../../helpers/grid'
+import styled, { StyledComponent } from '@emotion/styled';
+import { GridProps } from '../../components';
 
 export type FlowSceneProps = {
     
@@ -25,6 +24,7 @@ export const FlowScene: React.FC<FlowSceneProps> = ({  }) => {
     const answered = useSelector(selectAnsweredQuestions);
     const nextQuestion = useSelector(selectNextQuestion);
     const nextResult = useSelector(selectFinalResult);
+    const styles = useSelector(selectStyles);
 
     const Grid = getComponentConstructor('Grid');
     
@@ -37,15 +37,25 @@ export const FlowScene: React.FC<FlowSceneProps> = ({  }) => {
 
     const questions: Question[] = [...answered];
     if (nextQuestion) { questions.push(nextQuestion) }
-    let startCol = 5;
+    let startCol = calculateOriginCol(styles.gridColumns, styles.gridQuestionCardWidth);
+
+    if (!StyledGrid) { generateStyledGrid(Grid); }
 
     return(
-        <Grid columns={COLUMNS}>
-            <FileDetails css={css`grid-column-start: ${startCol}; grid-column-end: ${startCol + CARD_WIDTH}`}/>
+        <StyledGrid columns={styles.gridColumns}>
+            <FileDetailsState css={css`
+                grid-column-start: ${startCol}; 
+                grid-column-end: ${startCol + styles.gridQuestionCardWidth};
+
+                @media screen and (max-width: ${BREAKPOINT}px) {
+                    grid-column-start: 1;
+                    grid-column-end: unset;
+                }
+            `}/>
 
             {/* question section */}
             {questions.map((q, qIdx) => {
-                startCol = calculateStartCol(questions[qIdx - 1] as AnsweredQuestion, startCol);
+                startCol = calculateNextStartCol(questions[qIdx - 1] as AnsweredQuestion, startCol, styles.gridColumns, styles.gridQuestionCardWidth);
 
                 return (
                     <StyledQuestion 
@@ -60,23 +70,18 @@ export const FlowScene: React.FC<FlowSceneProps> = ({  }) => {
             {nextResult && <StyledResult result={nextResult} />}
 
             
-        </Grid>
+        </StyledGrid>
     );
 };
 
-const calculateStartCol = (lastQuestion: AnsweredQuestion, startCol: number) => {
-    if (!lastQuestion) { return startCol; }
+let StyledGrid: StyledComponent<any, any, any>;
+const generateStyledGrid = (Grid: ComponentConstructor<GridProps>) => {
+    StyledGrid = styled(Grid)`
 
-    const lastAnswer = lastQuestion.answerIdx;
-    const midpoint = ((lastQuestion?.answers.length - 1) / 2)
-
-    if (lastAnswer < midpoint) {
-        startCol -=  1;
-        startCol = Math.max(1, startCol);
-    } else if (lastAnswer > midpoint) {
-        startCol += 1;
-        startCol = Math.min(COLUMNS - CARD_WIDTH + 1, startCol);
-    }
-
-    return startCol;
+        @media screen and (max-width: ${BREAKPOINT}px) {
+            grid-template-columns: 1fr !important;
+        }
+    `;
+    return StyledGrid;
 }
+
