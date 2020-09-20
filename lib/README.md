@@ -2,7 +2,9 @@
 
 This library takes in a markdown document of a particular format and transforms it into a flowchart or Choose-Your-Own-Adventure format. 
 
-The library has a self-contained Redux store that can parse markdown files (thanks to [unified](TODO)) and transform into the models expected by the application. It also will handle the rendering of these models for you. However, there are a variety of levers you can use in order to generate a look-and-feel that is all your own. 
+The library has a self-contained Redux store that can parse markdown files (thanks to [unified](https://github.com/unifiedjs/unified)) and transform into the models expected by the application. It also will handle the rendering of these models for you. However, there are a variety of levers you can use in order to generate a look-and-feel that is all your own. 
+
+Try it out at https://kipprice.github.io/flow_md!
 
 ## Example
 ```jsx
@@ -36,7 +38,7 @@ const { astTree, parsedContent } = await parseMarkdown('file contents go here');
 
 ### Styles
 
-Setting the `styles` property gives you an easy way to override a lot of the visual elements in the application. You can specify colors, fonts, and to a certain extent, how the elements render on the page. You can specify as many or as few elements as you'd like; default styles will be used for the rest. You can view the default styles [here](TODO).
+Setting the `styles` property gives you an easy way to override a lot of the visual elements in the application. You can specify colors, fonts, and to a certain extent, how the elements render on the page. You can specify as many or as few elements as you'd like; default styles will be used for the rest. You can view the default styles [here](https://github.com/kipprice/flow-md/blob/main/lib/src/models/styles.ts).
 
 ```typescript
 /**
@@ -96,7 +98,7 @@ export type Styles = {
 
 You can override the rendering of any base component in the application via the `componentConstructors` property. This should generally work well, but carries some risk with it. If you're not certain how to use all of the provided properties appropriately, you can look at the default implementations to get a sense of how it fits together.
 
-Each component will receive a set of props from the calling component; you can look at each of these types in the [definition files](TODO).
+Each component will receive a set of props from the calling component; you can look at each of these types in the [component folders](https://github.com/kipprice/flow-md/tree/main/lib/src/components).
 
 ```typescript
 export type ComponentTypeProps = {
@@ -195,9 +197,9 @@ The repo is split into two parts: the actual library and the sample application 
 
 ### Setup Instructions
 1. In the terminal, `cd` into the `lib` folder and run `yarn && yarn build && yarn build:webpack -w`
-1. Symlink the `dist`, `typings`, and `package.json` from `lib` into `example/node_modules/flow-md` (this makes the webpack server live-reload with changes to the library).
+1. Symlink the `dist`, `typings`, and `package.json` from `lib` into `docs/node_modules/flow-md` (this makes the webpack server live-reload with changes to the library).
     - Make sure you do not link the `node_modules` folder!
-1. Open a new terminal window, `cd` into the `example` folder, and run `yarn && yarn start`
+1. Open a new terminal window, `cd` into the `docs` folder, and run `yarn && yarn start`
 1. You should now have a tab open in the default web browser to http://localhost:5050.
 
 ## Reporting Issues

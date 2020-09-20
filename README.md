@@ -4,7 +4,7 @@ This library takes in a markdown document of a particular format and transforms 
 
 The library has a self-contained Redux store that can parse markdown files (thanks to [unified](https://github.com/unifiedjs/unified)) and transform into the models expected by the application. It also will handle the rendering of these models for you. However, there are a variety of levers you can use in order to generate a look-and-feel that is all your own. 
 
-Try it out at https://kipprice.com/flow_md!
+Try it out at https://kipprice.github.io/flow_md!
 
 ## Example
 ```jsx

@@ -99,12 +99,10 @@ const sharedBtnStyles = css`
 `;
 
 const Button = styled.button<{ selected: boolean }>`
+    ${sharedBtnStyles}
     border: 1px solid #f4d06f;
     background-color: ${(p) => (!p.selected ? 'transparent' : '#F4D06F')};
     color: ${(p) => (!p.selected ? '#F4D06F' : '#313D5A')};
-    
-    ${sharedBtnStyles}
-    
 
     &:hover {
         color: #313d5a;
@@ -114,12 +112,12 @@ const Button = styled.button<{ selected: boolean }>`
 `;
 
 const CloseButton = styled.button`
+    ${sharedBtnStyles}
     border: 1px solid #FFF;
     color: #FFF;
     background-color: transparent;
-    margin-right: 2rem;
-    ${sharedBtnStyles}
-
+    margin-right: 1rem !important;
+    
     &:hover {
         color: #313d5a;
         background-color: #FFF;
