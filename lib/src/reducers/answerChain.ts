@@ -1,16 +1,15 @@
 import { QuestionAnswerPair } from '../models/answer';
 import { Action } from 'redux';
 import { ANSWER_QUESTION, AnswerQuestionAction } from '../actions/answerQuestion';
-import { CHANGE_MODE } from '../actions/changeMode';
-import { RESET } from '../actions/reset';
+import { RESET, START_OVER } from '../actions/reset';
 
 export const answerChain = (state: QuestionAnswerPair[] = [], action: Action<any>) => {
     switch (action.type) {
         case ANSWER_QUESTION:
             return handleAnswerQuestion(state, action as AnswerQuestionAction);
 
-        case CHANGE_MODE:
         case RESET:
+        case START_OVER:
             return [];
     }
     return state;

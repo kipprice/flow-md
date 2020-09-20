@@ -7,12 +7,12 @@ type FlexAlignmentType = 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'spa
 export type FlexProps = HTMLAttributes<HTMLDivElement> & ExpectsChildren & {
     horizontal?: FlexAlignmentType;
     vertical?: FlexAlignmentType;
-    wrap?: boolean;
+    shouldWrap?: boolean;
 };
 
-export const FlexRow: React.FC<FlexProps> = ({ children, horizontal, vertical, ...props }) => {
+export const FlexRow: React.FC<FlexProps> = ({ children, horizontal, vertical, shouldWrap, ...props }) => {
     return(
-        <StyledRow horizontal={horizontal} vertical={vertical} {...props}>{children}</StyledRow>
+        <StyledRow horizontal={horizontal} vertical={vertical} shouldWrap={shouldWrap} {...props}>{children}</StyledRow>
     );
 };
 
@@ -21,7 +21,7 @@ const StyledRow = styled.div<FlexProps>`
     flex-direction: row;
     justify-content: ${p => p.horizontal};
     align-items: ${p => p.vertical};
-    flex-wrap: ${p => p.wrap ? 'wrap' : 'nowrap'};
+    flex-wrap: ${p => p.shouldWrap ? 'wrap' : 'nowrap'};
 `;
 
 export const FlexColumn: React.FC<FlexProps> = ({ children, horizontal, vertical, ...props }) => {

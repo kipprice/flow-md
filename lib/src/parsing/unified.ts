@@ -1,4 +1,4 @@
-import type { Parent as ASTNode } from 'unist';
+import type { Node, Parent as ASTNode } from 'unist';
 import unified from 'unified';
 import remark from 'remark-parse';
 import rehype from 'remark-rehype';
@@ -39,5 +39,16 @@ export const parseAsHtml = async (snippet: string): Promise<string> => {
         .use(stringify)
     .process(snippet);
     return parser.contents.toString();
+}
+
+export const parsePartialAsHtml = async (node: Node): Promise<string> => {
+    const processor = unified()
+        .use(rehype)
+        .use(stringify);
+
+    const updatedNode = await processor.run(node);
+    const stringified = await processor.stringify(updatedNode);
+
+    return stringified;
 }
 

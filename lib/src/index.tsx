@@ -48,6 +48,8 @@ export type {
     ResultId,
     Styles,
 } from './models';
+export { getComponentConstructor } from './helpers/componentConstructors';
 export type { ComponentTypeProps, ComponentConstructors } from './helpers/componentConstructors';
 export { getStyles } from './selectors';
 export { parseMarkdown } from './thunks/parseFile'
+export * from './parsing/unified';

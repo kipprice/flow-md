@@ -4,7 +4,7 @@ This library takes in a markdown document of a particular format and transforms 
 
 The library has a self-contained Redux store that can parse markdown files (thanks to [unified](https://github.com/unifiedjs/unified)) and transform into the models expected by the application. It also will handle the rendering of these models for you. However, there are a variety of levers you can use in order to generate a look-and-feel that is all your own. 
 
-Try it out at https://kipprice.com/flow_md!
+Try it out at https://kipprice.github.io/flow_md!
 
 ## Example
 ```jsx
@@ -197,9 +197,9 @@ The repo is split into two parts: the actual library and the sample application 
 
 ### Setup Instructions
 1. In the terminal, `cd` into the `lib` folder and run `yarn && yarn build && yarn build:webpack -w`
-1. Symlink the `dist`, `typings`, and `package.json` from `lib` into `example/node_modules/flow-md` (this makes the webpack server live-reload with changes to the library).
+1. Symlink the `dist`, `typings`, and `package.json` from `lib` into `docs/node_modules/flow-md` (this makes the webpack server live-reload with changes to the library).
     - Make sure you do not link the `node_modules` folder!
-1. Open a new terminal window, `cd` into the `example` folder, and run `yarn && yarn start`
+1. Open a new terminal window, `cd` into the `docs` folder, and run `yarn && yarn start`
 1. You should now have a tab open in the default web browser to http://localhost:5050.
 
 ## Reporting Issues

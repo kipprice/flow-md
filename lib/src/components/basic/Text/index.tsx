@@ -1,4 +1,4 @@
-import React, { ReactChild } from 'react';
+import React, { HTMLAttributes, ReactChild } from 'react';
 import { ColorScheme } from '../../../models';
 import { useSelector } from 'react-redux';
 import { selectStyles } from '../../../selectors/styles';
@@ -7,10 +7,10 @@ import styled, { StyledComponent } from '@emotion/styled';
 export type Align = 'left' | 'right' | 'center';
 export type TextAs = 'div' | 'span' | 'p';
 
-export type TextProps = {
+export type TextProps = HTMLAttributes<HTMLSpanElement> & {
     as?: TextAs;
     colorScheme?: ColorScheme;
-    children: ReactChild[] | ReactChild;
+    children?: ReactChild[] | ReactChild;
     align?: Align;
 };
 

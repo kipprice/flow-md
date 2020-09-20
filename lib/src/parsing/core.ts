@@ -21,7 +21,7 @@ export const parseTreeIntoContent = async (tree: ASTNode, originalFile: string):
             ...questionsAndResults
         }
     } else {
-        const questions = parseWithoutResults(tree);
+        const questions = await parseWithoutResults(tree);
         return {
             ...out,
             ...questions
@@ -31,7 +31,7 @@ export const parseTreeIntoContent = async (tree: ASTNode, originalFile: string):
 
 const parseWithResults = async (tree: ASTNode, startOfQuestions: number, startOfResults: number, originalFile: string): Promise<Pick<Content, 'questions' | 'results'>> => {
 
-    const questions = parseQuestions(tree, startOfQuestions + 1, startOfResults, 3);
+    const questions = await parseQuestions(tree, startOfQuestions + 1, startOfResults, 3);
     const results = await parseResults(tree, startOfResults + 1, originalFile)
 
     return {
@@ -40,10 +40,10 @@ const parseWithResults = async (tree: ASTNode, startOfQuestions: number, startOf
     };
 }
 
-const parseWithoutResults = (tree: ASTNode): Pick<Content, 'questions'> => {
+const parseWithoutResults = async (tree: ASTNode): Promise<Pick<Content, 'questions'>> => {
     
     const startOfQuestions = findNthOfType(tree, 'heading', 2)[1];
-    const questions = parseQuestions(tree, startOfQuestions, tree.children.length, 2);
+    const questions = await parseQuestions(tree, startOfQuestions, tree.children.length, 2);
 
     return {
         questions
