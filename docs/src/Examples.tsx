@@ -47,7 +47,7 @@ export const Examples: React.FC<ExamplesProps> = ({ fileToLoad, setFile }) => {
             </Extra>
 
         </StyledExamples>
-            <div style={{height: '3rem'}} />
+            <div style={{height: '3rem', flexShrink: 0 }}> </div>
         </>
     );
 };

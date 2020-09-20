@@ -3,6 +3,7 @@ import { FlowMD, Card, getStyles, FlexRow, Button as FlowBtn } from 'flow-md';
 import type { ResultElemProps, Mode } from 'flow-md';
 import { Examples } from './Examples';
 import { CYOA } from './constants';
+import styled from '@emotion/styled';
 
 export const App: React.FC = () => {
     const [fileToLoad, setFileToLoad] = useState('');
@@ -26,8 +27,9 @@ export const App: React.FC = () => {
     );
 
     return (
-        <>
+        <Column>
             <Examples fileToLoad={fileToLoad} setFile={setFile} />
+            <Grow>
             <FlowMD
                 componentConstructors={{
                     Result,
@@ -54,7 +56,8 @@ export const App: React.FC = () => {
 
                 fileToLoad={fileToLoad}
             />
-        </>
+            </Grow>
+        </Column>
     );
 };
 
@@ -73,3 +76,16 @@ const Result: React.FC<ResultElemProps> = ({ result, startOver, ...props }) => {
         </Card>
     );
 };
+
+const Column = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    width: 100%;
+    height: 100%;
+`;
+
+const Grow = styled.div`
+    flex-grow: 1;
+    overflow: hidden;
+`

@@ -16,6 +16,7 @@ export type QuestionStateProps = Partial<CardProps> & {
 export const QuestionState: React.FC<QuestionStateProps> = ({ question, mode, colorScheme, ...props }) => {
     const isAnswered = useSelector((s: Store) => selectIsAnswered(s, question.id));
     const dispatch = useDispatch();
+    
     const renderAnswer = useCallback((a: Answer, aIdx: number) => {
         return (
             <AnswerState 

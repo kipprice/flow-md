@@ -9,8 +9,14 @@ export const ScrollHelper: React.FC = () => {
 
     
     useEffect(() => {
-        if (selectedQuestions.length < 1) { return; }
+        
         window.setTimeout(() => {
+            if (selectedQuestions.length < 1) {
+                let elem = document.getElementById('styledContent');
+                elem?.scrollTo({ behavior: 'smooth', top: 0 })
+                return;
+            }
+
             let elem: HTMLElement | null = null;
             if (nextResult) {
                 elem = document.getElementById(`result-${nextResult.id}`);

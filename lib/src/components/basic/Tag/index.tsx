@@ -21,7 +21,6 @@ export const Tag: React.FC<TagProps> = ({ colorScheme, children, ...props }) => 
         complement = styles.colors['dark'] + '88';
     }
 
-
     return(
         <StyledTag primary={primary} complement={complement} {...props}>{children}</StyledTag>
     );

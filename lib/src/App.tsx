@@ -21,7 +21,7 @@ export const App: React.FC = ({ }) => {
     
     return (
         <StyledPage styles={styles}>
-            <StyledContent>
+            <StyledContent id='styledContent'>
                 {permissions.includes('upload') && <UploadScene />}
                 {/* {enabledOptions.includes('author') && <AuthorScene />} */}
                 {permissions.includes('flow') && <FlowScene />}
