@@ -197,9 +197,9 @@ The repo is split into two parts: the actual library and the sample application 
 
 ### Setup Instructions
 1. In the terminal, `cd` into the `lib` folder and run `yarn && yarn build && yarn build:webpack -w`
-1. Symlink the `dist`, `typings`, and `package.json` from `lib` into `example/node_modules/flow-md` (this makes the webpack server live-reload with changes to the library).
+1. Symlink the `dist`, `typings`, and `package.json` from `lib` into `docs/node_modules/flow-md` (this makes the webpack server live-reload with changes to the library).
     - Make sure you do not link the `node_modules` folder!
-1. Open a new terminal window, `cd` into the `example` folder, and run `yarn && yarn start`
+1. Open a new terminal window, `cd` into the `docs` folder, and run `yarn && yarn start`
 1. You should now have a tab open in the default web browser to http://localhost:5050.
 
 ## Reporting Issues
