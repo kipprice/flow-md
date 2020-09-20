@@ -1,6 +1,6 @@
 {
   "name": "flow-md",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Flowchart generator from a markdown file",
   "author": "Kip Price",
   "license": "MIT",
