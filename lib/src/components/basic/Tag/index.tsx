@@ -6,14 +6,21 @@ import { getComplementaryColors } from '../../../helpers/styles';
 import { ColorScheme } from '../../../models';
 
 export type TagProps = {
-    colorScheme: ColorScheme;
+    colorScheme: ColorScheme | 'subtle';
     children: ReactChild | ReactChild[];
 };
 
 export const Tag: React.FC<TagProps> = ({ colorScheme, children, ...props }) => {
     const styles = useSelector(selectStyles);
 
-    const [primary, complement] = getComplementaryColors(styles, colorScheme);
+    let primary: string, complement: string;
+    if (colorScheme !== 'subtle') {
+        [primary, complement] = getComplementaryColors(styles, colorScheme);
+    } else {
+        primary = 'transparent';
+        complement = styles.colors['dark'] + '88';
+    }
+
 
     return(
         <StyledTag primary={primary} complement={complement} {...props}>{children}</StyledTag>

@@ -3,5 +3,9 @@ import { QuestionId } from '../models/answer';
 
 export const selectQuestion = (s: Store, questionId: QuestionId) => {
     if (!s.content) { return null; }
-    return s.content.questions[questionId - 1];
+    
+    for (let q of s.content.questions) {
+        if (q.id === questionId) { return q; }
+    }
+    return null;
 }

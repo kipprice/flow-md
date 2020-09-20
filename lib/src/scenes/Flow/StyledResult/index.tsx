@@ -1,16 +1,13 @@
 import React from 'react';
-import { getComponentConstructor } from '../../../helpers/componentConstructors';
 import styled from '@emotion/styled';
-import { Result } from '../../../models/result';
 import { useSelector } from 'react-redux';
 import { selectStyles } from '../../../selectors';
 import { calculateOriginCol, BREAKPOINT } from '../../../helpers/grid';
+import { ResultStateElem, ResultStateProps } from '../../../components';
 
 
 
-export type StyledResultProps = {
-    result: Result;
-};
+export type StyledResultProps = ResultStateProps & {};
 
 export const StyledResult: React.FC<StyledResultProps> = ({ result }) => {
     const styles = useSelector(selectStyles);
@@ -19,7 +16,7 @@ export const StyledResult: React.FC<StyledResultProps> = ({ result }) => {
     const startCol = calculateOriginCol(styles.gridColumns, styles.gridResultCardWidth)
     const endCol = startCol + styles.gridResultCardWidth;
 
-    const ResultElem = getComponentConstructor('Result');
+    const ResultElem = ResultStateElem;
 
     const StyledResultElem = styled(ResultElem)<{ startCol: number, endCol: number }>`
         grid-column-start: ${p => p.startCol};

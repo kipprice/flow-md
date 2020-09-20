@@ -6,6 +6,7 @@ import { loadStylesAction } from './actions/loadStyles';
 import { loadFileFromUrlThunk } from './thunks';
 import { loadOptionsAction } from './actions/loadOptions';
 import { App } from './App';
+import { clearLoadedFileAction } from './actions/reset';
 
 export const OptionWrapper: React.FC<FlowMDProps> = ({ componentConstructors, styles, fileToLoad, options }) => {
     const dispatch = useDispatch();
@@ -15,8 +16,12 @@ export const OptionWrapper: React.FC<FlowMDProps> = ({ componentConstructors, st
         window.setTimeout(() => {
             if (componentConstructors) { updateUserFactory(componentConstructors) }
             if (styles) { dispatch(loadStylesAction(styles)) }
-            if (fileToLoad) { dispatch(loadFileFromUrlThunk(fileToLoad)) }
             if (options) { dispatch(loadOptionsAction(options)); }
+
+            // if there's no file specified, make sure we also clear
+            if (fileToLoad) { dispatch(loadFileFromUrlThunk(fileToLoad)) }
+            else { dispatch(clearLoadedFileAction())}
+
         }, 0);
     }, [componentConstructors, styles, fileToLoad, options])
 

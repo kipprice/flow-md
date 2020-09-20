@@ -22,6 +22,9 @@ export type QuestionElemProps = {
     /** true if this question has already been answered */
     isAnswered: boolean;
 
+    /** option to start the flow over again; recommended only to show with questions without answers */
+    startOver: () => void;
+
     /** callback to render an AnswerElem (custom or default) with the appropriate state */
     renderAnswer: (
         answer: Answer,
@@ -35,6 +38,7 @@ export const QuestionElem: React.FC<QuestionElemProps> = ({
     colorScheme = 'primary',
     isAnswered,
     renderAnswer,
+    startOver,
     ...props
 }) => {
 
@@ -43,6 +47,7 @@ export const QuestionElem: React.FC<QuestionElemProps> = ({
     const FlexColumn = getComponentConstructor('FlexColumn');
     const Text = getComponentConstructor('Text');
     const Spacing = getComponentConstructor('Spacing');
+    const Button = getComponentConstructor('Button');
 
     if (!StyledCard) {
         StyledCard = styled(Card)<{ isAnswered: boolean }>`
@@ -56,15 +61,15 @@ export const QuestionElem: React.FC<QuestionElemProps> = ({
 
     return (
         <StyledCard isAnswered={isAnswered} {...props}>
-            <Text as='div' align='center'>
-                {question.questionText}
-            </Text>
+            <Text as='div' align='center' dangerouslySetInnerHTML={{__html: question.questionHtml}} />
             <Spacing size={1} direction='vertical' />
             {mode === 'inline' ? (
-                <FlexRow horizontal='space-around' wrap>{answers}</FlexRow>
+                <FlexRow horizontal='space-around' shouldWrap>{answers}</FlexRow>
             ) : (
                 <FlexColumn horizontal='stretch'>{answers}</FlexColumn>
             )}
+            {answers.length === 0 && 
+                <FlexRow horizontal='center'><Button onClick={startOver} colorScheme='primary'>Start Over</Button></FlexRow>}
         </StyledCard>
     );
 };

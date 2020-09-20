@@ -61,6 +61,8 @@ export const AnswerElem: React.FC<AnswerElemProps> = ({
             tag = <StyledTag colorScheme='secondary'>New</StyledTag>;
         } else if (hasUnviewedDescendent) {
             tag = <StyledTag colorScheme='tertiary'>More to Explore</StyledTag>;
+        } else {
+            tag = <StyledTag colorScheme='subtle'>Fully Explored</StyledTag>
         }
     }
 

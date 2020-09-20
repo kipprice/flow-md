@@ -1,25 +1,15 @@
 import React, { useEffect } from 'react';
-import { ResultElemProps } from '../../../components';
-import { getComponentConstructor } from '../../../helpers/componentConstructors';
-import styled from '@emotion/styled';
+import { ResultStateProps, ResultStateElem } from '../../../components';
 import { useSelector, useDispatch } from 'react-redux';
 import { Store } from '../../../models';
 import { selectIsVisited } from '../../../selectors';
 import { visitedAction } from '../../../actions';
 
-export type StyledResultProps = ResultElemProps & {
-    
-};
+export type StyledResultProps = ResultStateProps & {};
 
 export const StyledResult: React.FC<StyledResultProps> = ({ result }) => {
     const isViewed = useSelector((s: Store) => selectIsVisited(s, result.id))
     const dispatch = useDispatch();
-    
-    const ResultElem = getComponentConstructor('Result');
-
-    const StyledResult = styled(ResultElem)`
-        
-    `;
 
     useEffect(() => {
         if (isViewed) { return; }
@@ -27,6 +17,6 @@ export const StyledResult: React.FC<StyledResultProps> = ({ result }) => {
     }, [isViewed, result])
 
     return(
-        <StyledResult id={`result-${result.id}`} result={result} />
+        <ResultStateElem id={`result-${result.id}`} result={result} />
     );
 };

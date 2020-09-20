@@ -1,10 +1,11 @@
 import React, { useCallback } from 'react';
 import { Question, ColorScheme, Store, Answer } from '../../../models';
 import { getComponentConstructor } from '../../../helpers/componentConstructors';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectIsAnswered } from '../../../selectors';
 import { AnswerState } from '../Answer';
 import { CardProps } from '../../basic';
+import { startOverAction } from '../../../actions/reset';
 
 export type QuestionStateProps = Partial<CardProps> & {
     question: Question;
@@ -14,7 +15,7 @@ export type QuestionStateProps = Partial<CardProps> & {
 
 export const QuestionState: React.FC<QuestionStateProps> = ({ question, mode, colorScheme, ...props }) => {
     const isAnswered = useSelector((s: Store) => selectIsAnswered(s, question.id));
-
+    const dispatch = useDispatch();
     const renderAnswer = useCallback((a: Answer, aIdx: number) => {
         return (
             <AnswerState 
@@ -38,6 +39,7 @@ export const QuestionState: React.FC<QuestionStateProps> = ({ question, mode, co
             colorScheme={colorScheme}
             isAnswered={isAnswered}
             renderAnswer={renderAnswer}
+            startOver={() => dispatch(startOverAction())}
             {...props}
         />
     );
