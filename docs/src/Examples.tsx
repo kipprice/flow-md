@@ -16,24 +16,24 @@ export const Examples: React.FC<ExamplesProps> = ({ fileToLoad, setFile }) => {
         <>
         <StyledExamples>
             <Buttons>
-            <span>Premade Examples:</span>
+            <span>Examples:</span>
             <Button
                 selected={fileToLoad === LONG_SAMPLE}
                 onClick={() => setFile(LONG_SAMPLE)}
             >
-                Long Sample
+                Long Questionnaire
             </Button>
             <Button
                 selected={fileToLoad === SAMPLE_WITH_RESULTS}
                 onClick={() => setFile(SAMPLE_WITH_RESULTS)}
             >
-                Sample With Results
+                With Results
             </Button>
             <Button
                 selected={fileToLoad === SAMPLE_WITHOUT_RESULTS}
                 onClick={() => setFile(SAMPLE_WITHOUT_RESULTS)}
             >
-                Sample Without Results
+                Without Results
             </Button>
             <Button
                 selected={fileToLoad === CYOA}
@@ -57,8 +57,7 @@ const StyledExamples = styled.div`
     display: flex;
     justify-content: center;
     background-color: #313d5a;
-    font-family: Helvetica;
-    font-weight: lighter;
+    font-family: Futura;
     color: #fff;
     align-items: center;
     padding: 0.5rem;
